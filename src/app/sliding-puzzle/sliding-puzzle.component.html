@@ -9,7 +9,7 @@
 <table>
   <tr *ngFor="let i of four">
     <td [ngStyle]="{'padding.px': padding}" *ngFor="let j of four">
-      <img [src]="image(i * 4 + j)"
+      <img [alt]="blocks[i * 4 + j] || ''" [src]="image(i * 4 + j)"
            (mousedown)="onclick(i * 4 + j)">
     </td>
   </tr>
