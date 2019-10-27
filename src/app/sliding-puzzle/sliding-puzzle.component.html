@@ -1,0 +1,31 @@
+<!--<table>
+  <tr>
+    <td><img [src]="image(0)"></td><td><img src="assets/images/default/2.jpg"></td><td><img src="assets/images/default/3.jpg"></td>
+  </tr>
+  <tr>
+    <td><img src="assets/images/default/4.jpg"></td><td><img src="assets/images/default/5.jpg"></td><td><img src="assets/images/default/6.jpg"></td>
+  </tr>
+  <tr>
+    <td><img src="assets/images/default/7.jpg"></td><td><img src="assets/images/default/8.jpg"></td><td><img src="assets/images/default/9.jpg"></td>
+  </tr>
+</table>-->
+
+<div>
+  <label for="theme">Theme:</label>
+  <select id="theme" [(ngModel)]="theme" (ngModelChange)="onThemeChange()">
+    <option *ngFor="let theme of availableThemes, index as i" [value]="theme" selected>{{theme}}</option>
+  </select>
+</div>
+
+<div>
+<table>
+  <tr *ngFor="let i of four">
+    <td [ngStyle]="{'padding.px': padding}" *ngFor="let j of four">
+      <img [alt]="i * 4 + j" [src]="image(i * 4 + j)"
+           (mousedown)="onclick(i * 4 + j)">
+    </td>
+  </tr>
+</table>
+</div>
+
+<button (click)="reset()">reset</button>

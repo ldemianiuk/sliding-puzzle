@@ -1,0 +1,20 @@
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+table {
+  width: 500px;
+  height: 500px;
+  background: white;
+  border-spacing: 0;
+}
+
+div {
+  margin: 20px;
+}
+
+label {
+  margin: 20px;
+}
