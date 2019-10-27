@@ -3,13 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SlidingPuzzleComponent } from './sliding-puzzle/sliding-puzzle.component';
+import {EnumToArrayPipe, SlidingPuzzleComponent} from './sliding-puzzle/sliding-puzzle.component';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SlidingPuzzleComponent
+    SlidingPuzzleComponent,
+    EnumToArrayPipe
   ],
   imports: [
     BrowserModule,

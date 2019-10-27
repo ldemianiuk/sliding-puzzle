@@ -6,6 +6,13 @@
 </div>
 
 <div>
+  <label for="scramble">Scramble</label>
+  <select id="scramble" [(ngModel)]="scramble" (ngModelChange)="onScrambleChange()">
+    <option *ngFor="let scramble of scrambles | enumToArray, index as i" [value]="scramble.index">{{scramble.name}}</option>
+  </select>
+</div>
+
+<div>
 <table>
   <tr *ngFor="let i of four">
     <td [ngStyle]="{'padding.px': padding}" *ngFor="let j of four">

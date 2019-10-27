@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+
+enum Scramble { Random, Easy}
+
+@Pipe({name: 'enumToArray'})
+export class EnumToArrayPipe implements PipeTransform {
+  transform(value) {
+    return Object.keys(value).filter(e => !isNaN(+e)).map(o => ({index: +o, name: value[o]}));
+  }
+}
 
 @Component({
   selector: 'app-sliding-puzzle',
@@ -12,6 +21,8 @@ export class SlidingPuzzleComponent implements OnInit {
   blocks: number[];
   availableThemes = ['default', 'dev', 'lenna'];
   padding: number;
+  scramble = Scramble.Random;
+  scrambles = Scramble;
 
 
   ngOnInit() {
@@ -20,12 +31,26 @@ export class SlidingPuzzleComponent implements OnInit {
       this.theme = theme;
     }
 
+    const scramble = localStorage.getItem('scramble');
+    if (scramble) {
+      this.scramble = +scramble;
+    }
+
     this.padding = 2;
 
     this.blocks = [...Array(15).keys(), null];
 
-    // this.shuffleArray(this.blocks);
-    this.swap (14, 15);
+    switch (this.scramble) {
+      case Scramble.Easy:
+        console.log('easy');
+        this.swap (14, 15);
+        break;
+      case Scramble.Random:
+        this.shuffleArray(this.blocks);
+        console.log('random');
+        break;
+    }
+
   }
 
   image(n: number): string {
@@ -91,5 +116,11 @@ export class SlidingPuzzleComponent implements OnInit {
 
   reset() {
     this.ngOnInit();
+  }
+
+  onScrambleChange() {
+    localStorage.setItem('scramble', '' + this.scramble);
+    this.scramble = +this.scramble;
+    this.reset();
   }
 }
