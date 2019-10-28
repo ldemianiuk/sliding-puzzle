@@ -1,6 +1,5 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
-
-enum Shuffle { Random, Easy}
+import {Shuffle, ConfigService} from '../config.service';
 
 @Pipe({name: 'enumToArray'})
 export class EnumToArrayPipe implements PipeTransform {
@@ -17,31 +16,25 @@ export class EnumToArrayPipe implements PipeTransform {
 export class SlidingPuzzleComponent implements OnInit {
   four = [...Array(4).keys()];
   imagesBaseDir = 'assets/images';
-  theme = 'default';
-  blocks: number[];
   availableThemes = ['default', 'dev', 'lenna'];
+  blocks: number[];
   padding: number;
-  shuffle = Shuffle.Random;
+  theme: string;
+  shuffle: Shuffle;
   Shuffle = Shuffle;
 
+  constructor(private config: ConfigService) {
+  }
 
   ngOnInit() {
-    const theme = localStorage.getItem('theme');
-    if (theme) {
-      this.theme = theme;
-    }
-
-
-    const shuffle = localStorage.getItem('shuffle');
-    if (shuffle) {
-      this.shuffle = +shuffle;
-    }
+    this.theme = this.config.get('theme');
+    this.shuffle = this.config.getNumber('shuffle');
 
     this.padding = 2;
 
     this.blocks = [...Array(15).keys(), null];
 
-    switch (this.shuffle) {
+    switch (this.config.getNumber('shuffle')) {
       case Shuffle.Easy:
         console.log('easy');
         this.swap (14, 15);
@@ -56,7 +49,7 @@ export class SlidingPuzzleComponent implements OnInit {
 
   image(n: number): string {
     if (this.blocks[n] !== null ) {
-      return this.imagesBaseDir + '/' + this.theme + '/' + this.blocks[n] + '.jpg';
+      return this.imagesBaseDir + '/' + this.config.get('theme') + '/' + this.blocks[n] + '.jpg';
     } else {
       return '';
     }
@@ -97,10 +90,6 @@ export class SlidingPuzzleComponent implements OnInit {
     }
   }
 
-  onThemeChange() {
-    localStorage.setItem('theme', this.theme);
-  }
-
   private swap(n: number, i: number) {
     const tmp = this.blocks[n];
     this.blocks[n] = this.blocks[i];
@@ -119,9 +108,12 @@ export class SlidingPuzzleComponent implements OnInit {
     this.ngOnInit();
   }
 
+  onThemeChange() {
+    this.config.set('theme', this.theme);
+  }
+
   onShuffleChange() {
-    localStorage.setItem('shuffle', '' + this.shuffle);
-    this.shuffle = +this.shuffle;
+    this.config.setNumber('shuffle', this.shuffle);
     this.reset();
   }
 }
