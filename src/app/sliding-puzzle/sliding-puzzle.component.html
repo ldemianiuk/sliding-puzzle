@@ -1,12 +1,12 @@
 <div>
   <label for="theme">Theme:</label>
   <select id="theme" [(ngModel)]="theme" (ngModelChange)="onThemeChange()">
-    <option *ngFor="let theme of availableThemes, index as i" [value]="theme" selected>{{theme}}</option>
+    <option *ngFor="let theme of availableThemes, index as i" [value]="theme" selected>{{theme | titlecase}}</option>
   </select>
 </div>
 
 <div>
-  <label for="shuffle">Shuffle</label>
+  <label for="shuffle">Shuffle:</label>
   <select id="shuffle" [(ngModel)]="shuffle" (ngModelChange)="onShuffleChange()">
     <option *ngFor="let shuffle of Shuffle | enumToArray, index as i" [value]="shuffle.index">{{shuffle.name}}</option>
   </select>
@@ -16,7 +16,7 @@
 <table>
   <tr *ngFor="let i of four">
     <td [ngStyle]="{'padding.px': padding}" *ngFor="let j of four">
-      <img [alt]="blocks[i * 4 + j] || ''" [src]="image(i * 4 + j)"
+      <img [alt]="game.blocks[i * 4 + j] || ''" [src]="image(i * 4 + j)"
            (mousedown)="onclick(i * 4 + j)">
     </td>
   </tr>
