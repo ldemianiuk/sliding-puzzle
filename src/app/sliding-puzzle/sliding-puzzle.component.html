@@ -6,9 +6,9 @@
 </div>
 
 <div>
-  <label for="scramble">Scramble</label>
-  <select id="scramble" [(ngModel)]="scramble" (ngModelChange)="onScrambleChange()">
-    <option *ngFor="let scramble of scrambles | enumToArray, index as i" [value]="scramble.index">{{scramble.name}}</option>
+  <label for="shuffle">Shuffle</label>
+  <select id="shuffle" [(ngModel)]="shuffle" (ngModelChange)="onShuffleChange()">
+    <option *ngFor="let shuffle of Shuffle | enumToArray, index as i" [value]="shuffle.index">{{shuffle.name}}</option>
   </select>
 </div>
 
