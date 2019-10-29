@@ -3,19 +3,23 @@
   <select id="theme" [(ngModel)]="theme" (ngModelChange)="onThemeChange()">
     <option *ngFor="let theme of availableThemes, index as i" [value]="theme" selected>{{theme | titlecase}}</option>
   </select>
+  <div>
+    <button (click)="reset()">Reset</button>
+  </div>
 </div>
 
-<div>
+
+<!--<div>
   <label for="shuffle">Shuffle:</label>
   <select id="shuffle" [(ngModel)]="shuffle" (ngModelChange)="onShuffleChange()">
     <option *ngFor="let shuffle of Shuffle | enumToArray, index as i" [value]="shuffle.index">{{shuffle.name}}</option>
   </select>
-</div>
+</div>-->
 
-<div>
+<div class="game">
 <table>
   <tr *ngFor="let i of four">
-    <td [ngStyle]="{'padding.px': padding}" *ngFor="let j of four">
+    <td [ngClass]="{'solved': solved}" *ngFor="let j of four">
       <img [alt]="game.blocks[i * 4 + j] || ''" [src]="image(i * 4 + j)"
            (mousedown)="onclick(i * 4 + j)">
     </td>
@@ -23,4 +27,8 @@
 </table>
 </div>
 
-<button (click)="reset()">reset</button>
+
+<div id="win" class="blink" [hidden]="!solved">
+  CONGRATURATION <br> A WINRAR IS YOU
+</div>
+

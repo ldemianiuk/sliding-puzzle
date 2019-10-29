@@ -1,6 +1,6 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Shuffle, ConfigService} from '../config.service';
-import {GameService} from '../game.service';
+import {SlidingPuzzle} from './sliding-puzzle';
 
 @Pipe({name: 'enumToArray'})
 export class EnumToArrayPipe implements PipeTransform {
@@ -15,6 +15,7 @@ export class EnumToArrayPipe implements PipeTransform {
   styleUrls: ['./sliding-puzzle.component.css']
 })
 export class SlidingPuzzleComponent implements OnInit {
+  game: SlidingPuzzle;
   four = [...Array(4).keys()];
   imagesBaseDir = 'assets/images';
   availableThemes = ['default', 'dev', 'lenna'];
@@ -22,12 +23,14 @@ export class SlidingPuzzleComponent implements OnInit {
   theme: string;
   shuffle: Shuffle;
   Shuffle = Shuffle;
+  solved;
 
-  constructor(private config: ConfigService,
-              private game: GameService) {
+  constructor(private config: ConfigService) {
   }
 
   ngOnInit() {
+    this.solved = false;
+    this.game = new SlidingPuzzle();
     this.theme = this.config.get('theme');
     this.shuffle = this.config.getNumber('shuffle');
     this.padding = 2;
@@ -45,7 +48,7 @@ export class SlidingPuzzleComponent implements OnInit {
   onclick(n: number) {
     this.game.move(n);
     if (this.game.isSolved()) {
-      this.padding = 0;
+      this.solved = true;
     }
   }
 

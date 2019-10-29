@@ -1,10 +1,6 @@
-import { Injectable } from '@angular/core';
-import {Shuffle} from './config.service';
+import {Shuffle} from '../config.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class GameService {
+export class SlidingPuzzle {
   blocks: number[];
 
   constructor() {
@@ -47,11 +43,9 @@ export class GameService {
   shuffle(shuffle: Shuffle) {
     switch (shuffle) {
       case Shuffle.Easy:
-        this.resetArray();
         this.swap(14, 15);
         break;
       case Shuffle.Random:
-        this.resetArray();
         this.shuffleArray(this.blocks);
         break;
     }
@@ -61,13 +55,6 @@ export class GameService {
     const tmp = this.blocks[n];
     this.blocks[n] = this.blocks[i];
     this.blocks[i] = tmp;
-  }
-
-  private resetArray() {
-    for (let i = 0; i < 15; i++) {
-      this.blocks[i] = i;
-    }
-    this.blocks[15] = null;
   }
 
   shuffleArray(array) {
