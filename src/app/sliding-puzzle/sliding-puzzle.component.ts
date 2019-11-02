@@ -19,7 +19,6 @@ export class SlidingPuzzleComponent implements OnInit {
   four = [...Array(4).keys()];
   imagesBaseDir = 'assets/images';
   availableThemes = ['default', 'dev', 'lenna'];
-  padding: number;
   theme: string;
   shuffle: Shuffle;
   Shuffle = Shuffle;
@@ -33,7 +32,6 @@ export class SlidingPuzzleComponent implements OnInit {
     this.game = new SlidingPuzzle();
     this.theme = this.config.get('theme');
     this.shuffle = this.config.getNumber('shuffle');
-    this.padding = 2;
     this.game.shuffle(this.shuffle);
   }
 
