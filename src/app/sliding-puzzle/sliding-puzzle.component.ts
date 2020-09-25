@@ -1,6 +1,6 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
-import {Shuffle, ConfigService} from '../config.service';
-import {SlidingPuzzle} from './sliding-puzzle';
+import {Shuffle, ConfigService} from '../config-service/config.service';
+import {SlidingPuzzle} from '../sliding-puzzle';
 
 @Pipe({name: 'enumToArray'})
 export class EnumToArrayPipe implements PipeTransform {

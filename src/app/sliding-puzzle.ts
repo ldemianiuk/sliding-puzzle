@@ -1,4 +1,4 @@
-import {Shuffle} from '../config.service';
+import {Shuffle} from './config-service/config.service';
 
 export class SlidingPuzzle {
   blocks: number[];
