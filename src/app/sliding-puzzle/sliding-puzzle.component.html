@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <label for="theme">Theme:</label>
   <select id="theme" [(ngModel)]="theme" (ngModelChange)="onThemeChange()">
     <option *ngFor="let theme of availableThemes, index as i" [value]="theme" selected>{{theme | titlecase}}</option>
@@ -9,26 +9,29 @@
 </div>
 
 
-<!--<div>
+<div>
   <label for="shuffle">Shuffle:</label>
   <select id="shuffle" [(ngModel)]="shuffle" (ngModelChange)="onShuffleChange()">
     <option *ngFor="let shuffle of Shuffle | enumToArray, index as i" [value]="shuffle.index">{{shuffle.name}}</option>
   </select>
-</div>-->
-
-<div class="game">
-<table>
-  <tr *ngFor="let i of four">
-    <td [ngClass]="{'solved': solved}" *ngFor="let j of four">
-      <img [alt]="game.blocks[i * 4 + j] || ''" [src]="image(i * 4 + j)"
-           (mousedown)="onclick(i * 4 + j)">
-    </td>
-  </tr>
-</table>
+</div>
+ -->
+ 
+<div style="display: flex; flex-wrap: wrap;">
+  <div id="board">
+    <ng-container *ngFor="let i of [0,1,2,3]">
+      <div #tile *ngFor="let j of [0,1,2,3]" [ngClass]="{'tile': game.block(i, j) !== null}"
+        (mousedown)="onclick(tile, i * 4 + j)" [ngStyle]="{'animation-name': animation(i, j)}">
+        {{caption(i,j)}}
+      </div>
+    </ng-container>
+    <div id="win" *ngIf="solved">You win</div>
 </div>
 
+  <div style="padding: 5vmin;">
 
-<div id="win" class="blink" [hidden]="!solved">
-  CONGRATURATION <br> A WINRAR IS YOU
+    <div class="button" (click)="reset()">New game</div>
+    <div class="button" (click)="solve()">Solve</div>
+  </div>
+
 </div>
-
